@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extended Euclidean Algorithm Calculator</title>
+    
+    <!-- Link to static CSS and JS files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'euclidean/style.css' %}">
+</head>
+<body>
+    <h1>Extended Euclidean Algorithm Calculator</h1>
+    
+    <div class="calculator">
+        <div class="input-section">
+            <form method="POST" action="{% url 'euclid-calc' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="a">First Number (a):</label>
+                    <input type="number" id="a" name="a" required value="{{ a }}">
+                </div>
+                
+                <div class="form-group">
+                    <label for="b">Second Number (b):</label>
+                    <input type="number" id="b" name="b" required value="{{ b }}">
+                </div>
+                
+                <button type="submit">Calculate GCD</button>
+                
+                {% if error %}
+                    <div class="error">{{ error }}</div>
+                {% endif %}
+            </form>
+        </div>
+        
+        <div class="result-section">
+        {% if result_calculated %}
+            <div class="result-box">
+                <div class="result-title">Greatest Common Divisor</div>
+                <div class="result-value">gcd({{ a }}, {{ b }}) = {{ gcd }}</div>
+            </div>
+            
+            <div class="result-box">
+                <div class="result-title">Certificate of Correctness</div>
+                <div class="result-value">
+                    {{ a }} × {{ x }} + {{ b }} × {{ y }} = {{ gcd }}
+                </div>
+            </div>
+            
+            <h3>Step-by-Step Calculation</h3>
+            <table class="steps-table">
+                <thead>
+                    <tr>
+                        <th>Step</th>
+                        <th>x</th>
+                        <th>y</th>
+                        <th>r</th>
+                        <th>q</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>{{ a }}</td>
+                        <td>-</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>{{ b }}</td>
+                        <td>-</td>
+                    </tr>
+                    
+                    {% for step in steps %}
+                        
+                        {# The final GCD and COC are found in the step before r=0 (second to last step). #}
+                        {% if forloop.counter == steps|length|add:'-1' %}
+                            {# This is the second-to-last step: Highlight GCD (r3) and COC (x3, y3) #}
+                            <tr>
+                                <td>{{ forloop.counter | add:2 }}</td>
+                                <td class="gcd-highlight">{{ step.x3 }}</td>
+                                <td class="gcd-highlight">{{ step.y3 }}</td>
+                                <td class="gcd-highlight">{{ step.r3 }}</td>
+                                <td>{{ step.q3 }}</td>
+                            </tr>
+                        
+                        {% elif forloop.last %}
+                            {# This is the last step where r=0: Highlight the final 0 #}
+                            <tr>
+                                <td>{{ forloop.counter | add:2 }}</td>
+                                <td>{{ step.x3 }}</td>
+                                <td>{{ step.y3 }}</td>
+                                <td class="gcd-highlight">0</td>
+                                <td>{{ step.q3 }}</td>
+                            </tr>
+                        
+                        {% else %}
+                            {# Regular step #}
+                            <tr>
+                                <td>{{ forloop.counter | add:2 }}</td>
+                                <td>{{ step.x3 }}</td>
+                                <td>{{ step.y3 }}</td>
+                                <td>{{ step.r3 }}</td>
+                                <td>{{ step.q3 }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        </div>
+    </div>
+</body>
+</html>

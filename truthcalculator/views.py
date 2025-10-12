@@ -5,7 +5,7 @@ import json
 
 # Create your views here.
 def index(request):
-    return render(request, 'truthcalculator/index.html')
+    return render(request, 'truthtable/index.html')
 
 def calculate(request):
     # POST is the request method to update data

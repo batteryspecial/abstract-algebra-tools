@@ -43,7 +43,7 @@ async function updateTable() {
         
         console.log('Sending:', { n, expressions });
         
-        const response = await fetch('/calculate/', {
+        const response = await fetch('/truthtable/calculate/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

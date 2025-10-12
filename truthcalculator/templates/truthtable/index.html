@@ -7,9 +7,8 @@
 
     <!-- Link to static CSS and JS files -->
     {% load static %}
-    <link rel="icon" href="{% static 'img/truthsociety.jpg' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'truthcalculator/style.css' %}">
-    <script src="{% static 'truthcalculator/main.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'truthtable/style.css' %}">
+    <script src="{% static 'truthtable/main.js' %}" defer></script>
 </head>
 <body>
     {% csrf_token %}
@@ -23,7 +22,7 @@
             <p>The table updates automatically as you type.</p>
         </div>
         <div class="headergroup">
-            <input type="number" id="varCount" min="2" max="5" value="2">
+            <input class="input-section" type="number" id="varCount" min="2" max="5" value="2">
             <button onClick="updateTable()" id="updateBtn">Update</button>
         </div>
         <table id="truthTable">
