@@ -1,5 +1,5 @@
 # Abstract Algebra Tools
-Primarily based off of UWaterloo's Math 135 curriculum, the app illustrates fundamental concepts like truth tables and the extended euclidean algorithm (GCD WR, GCD CT, Bezout's Lemma).
+Primarily based off of UWaterloo's Math 135 curriculum, the app illustrates fundamental concepts like truth tables, RSA, complex numbers, and the extended euclidean algorithm (GCD WR, GCD CT, Bezout's Lemma).
 
 ## Functions
 You can specify the number of variables and input complex logical statements. Inputting numbers follows the same idea.
