@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'truthcalculator',
     'euclideanea',
     'rsa',
+    'complexcalculator',
 ]
 
 MIDDLEWARE = [

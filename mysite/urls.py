@@ -21,7 +21,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('truthtable/', include('truthcalculator.urls')),
-    path('euclidean/', include('euclideanea.urls')),
     path('rsa/', include('rsa.urls')),
+    path('complex/', include('complexcalculator.urls')),
+    path('euclidean/', include('euclideanea.urls')),
+    path('truthtable/', include('truthcalculator.urls')),
 ]
