@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <title>RSA Demo</title>
-        <link rel="stylesheet" href="{% static 'rsa/styles.css' %}">
+        <link rel="stylesheet" href="{% static 'rsa/style.css' %}">
         <script src="{% static 'rsa/main.js' %}" defer></script>
     </head>
     <body data-max-input="{{ max_input }}">
@@ -21,16 +21,26 @@
 
         <div id="keyArea" style="display:none;">
             <table>
-            <tr><th>n</th><td id="nVal"></td></tr>
-            <tr><th>m</th><td id="mVal"></td></tr>
-            <tr><th>e</th><td id="eVal"></td></tr>
-            <tr><th>d</th><td id="dVal"></td></tr>
+                <tr>
+                    <th>n</th>
+                    <th>m</th>
+                    <th>e</th>
+                    <th>d</th>
+                </tr>
+                <tr>
+                    <td id="nVal"></td>
+                    <td id="mVal"></td>
+                    <td id="eVal"></td>
+                    <td id="dVal"></td>
+                </tr>
             </table>
             <p>Public Key (<span id="pubE"></span>, <span id="pubN"></span>)</p>
             <p>Private Key (<span id="privD"></span>, <span id="privN"></span>)</p>
         </div>
 
         <h2>Encryption</h2>
+        <label>E <input id="E" type="number" min="0" max="{{ max_input }}"></label>
+        <label>N <input id="N" type="number" min="0" max="{{ max_input }}"></label>
         <label>Message <input id="M" type="number" min="0" max="{{ max_input }}"></label>
         <button id="encBtn">Encrypt</button>
         <p>Ciphertext <span id="CVal"></span></p>
@@ -39,5 +49,20 @@
         <label>Ciphertext <input id="C" type="number" min="0" max="{{ max_input }}"></label>
         <button id="decBtn">Decrypt</button>
         <p>Recovered Message <span id="RVal"></span></p>
+
+        <div id="expArea" style="display: None;">
+            <p>Notice that the decrypted ciphertext equals your original message.</p>
+            <p>
+                What you just saw was the fundamental idea behind RSA, a revolutionary
+                public-key crytography system that is widely in use today.
+                The entire concept of RSA encryption revolves around the fact that
+                numbers are hard to factor.
+            </p>
+            <p>
+                You can try this with a friend. Find two primes, and hide the private key.
+                If they have the public key, share it to a friend, and they can encrypt a
+                a message for you. Only you will be able to decrypt the message.
+            </p>
+        </div>
     </body>
 </html>
