@@ -52,6 +52,13 @@ def encrypt(request):
     if abs(M) > MAX_INPUT:
         return JsonResponse({"error": f"Message must be <= {MAX_INPUT}"}, status=400)
     
+    if M >= n:
+        return JsonResponse({"error": "Message must be less than n"}, status=400)
+    
+    import math
+    if math.gcd(M, n) != 1:
+        return JsonResponse({"error": "Message must be coprime to n"}, status=400)
+    
     C = rsa.encrypt_integer(M,e,n)
     return JsonResponse({"C":C})
 
@@ -66,6 +73,13 @@ def decrypt(request):
         n = int(data.get("n"))
     except Exception:
         return JsonResponse({"error": "Invalid input"}, status=400)
+
+    if C >= n:
+        return JsonResponse({"error": "Ciphertext must be less than n"}, status=400)
+    
+    import math
+    if math.gcd(C, n) != 1:
+        return JsonResponse({"error": "Ciphertext must be coprime to n"}, status=400)
 
     R = rsa.decrypt_integer(C % n, d, n)
     return JsonResponse({"R": R})
